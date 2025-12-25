@@ -153,4 +153,143 @@ openBasket() {
       .click()
   }
 
+  selectFirstAddress() {
+  cy.log('UI: Select first address')
+
+  cy.get('mat-radio-button input[type="radio"]', { timeout: 10000 })
+    .first()
+    .should('exist')
+    .check({ force: true })
+}
+
+clickContinue() {
+  cy.log('UI: Click Continue')
+
+  cy.contains('button', 'Continue', { timeout: 10000 })
+    .should('be.visible')
+    .and('not.be.disabled')
+    .click()
+}
+
+  selectFirstDeliverySpeed() {
+    cy.log('UI: Select first delivery speed option')
+
+    cy.get('mat-radio-button input[type="radio"]', { timeout: 10000 })
+      .first()
+      .should('exist')
+      .check({ force: true })
+  }
+
+  clickContinueDeliverySpeed() {
+    cy.log('UI: Click Continue on delivery speed step')
+
+    cy.contains('button', 'Continue', { timeout: 10000 })
+      .should('be.visible')
+      .and('not.be.disabled')
+      .click()
+  }
+
+  clickAddNewCard() {
+    cy.log('UI: Click "Add new card"')
+
+    cy.contains('mat-expansion-panel-header', 'Add new card', { timeout: 10000 })
+      .scrollIntoView()
+      .click()
+
+    cy.contains('mat-form-field', 'Expiry Month', { timeout: 10000 }).should('be.visible')
+  }
+
+
+typeCardName(name) {
+  cy.log('UI: Fill card Name')
+
+  this.getInputByLabel('Name')
+    .should('be.enabled')
+    .clear()
+    .type(name)
+}
+
+typeCardNumber(cardNumber) {
+  cy.log('UI: Fill Card Number')
+
+  this.getInputByLabel('Card Number')
+    .should('be.enabled')
+    .clear()
+    .type(cardNumber)
+}
+
+  getSelectByLabel(labelText) {
+    cy.log(`UI: Get select by label "${labelText}"`)
+
+    return cy.contains('mat-form-field', labelText, { timeout: 10000 })
+      .scrollIntoView()
+      .find('select')
+      .first()
+  }
+
+  selectExpiryMonth(month) {
+    cy.log(`UI: Select Expiry Month = ${month}`)
+
+    this.getSelectByLabel('Expiry Month')
+      .should('be.enabled')
+      .select(String(month))
+  }
+
+  selectExpiryYear(year) {
+    cy.log(`UI: Select Expiry Year = ${year}`)
+
+    this.getSelectByLabel('Expiry Year')
+      .should('be.enabled')
+      .select(String(year))
+  }
+
+    submitNewCard() {
+    cy.log('UI: Submit new card')
+
+    cy.contains('button', 'Submit', { timeout: 10000 })
+      .should('be.visible')
+      .and('not.be.disabled')
+      .click()
+  }
+
+  selectFirstPaymentMethod() {
+  cy.log('UI: Select first payment method (card radio)')
+
+  cy.get('mat-radio-button input[type="radio"]', { timeout: 10000 })
+    .first()
+    .should('exist')
+    .check({ force: true })
+}
+
+clickContinuePayment() {
+  cy.log('UI: Click Continue on payment step')
+
+  cy.contains('button', 'Continue', { timeout: 10000 })
+    .should('be.visible')
+    .and('not.be.disabled')
+    .click()
+}
+
+clickPlaceOrderAndPay() {
+  cy.log('UI: Place order and pay')
+
+  cy.contains('button', 'Place your order and pay', { timeout: 10000 })
+    .should('be.visible')
+    .and('not.be.disabled')
+    .click()
+}
+
+assertOrderPlaced() {
+  cy.log('Assert: Order has been placed')
+
+  cy.contains(
+    'Your order has been placed and is being processed',
+    { timeout: 10000 }
+  ).should('be.visible')
+}
+
+
+
+
+
 }

@@ -70,6 +70,55 @@ describe('Task 1.3 - Order placement (setup only)', () => {
     cy.log('Submit address form')
     orderPage.submitNewAddress()
 
+    cy.log('Select address')
+    orderPage.selectFirstAddress()
+
+    cy.log('Continue to next step')
+    orderPage.clickContinue()
+
+    cy.log('Select delivery speed')
+    orderPage.selectFirstDeliverySpeed()
+
+    cy.log('Continue to next step')
+    orderPage.clickContinueDeliverySpeed()
+
+    cy.log('Add new card')
+    orderPage.clickAddNewCard()
+
+    cy.log('Generate card data')
+    const cardName = faker.person.fullName()
+    const cardNumber = faker.string.numeric(16)
+
+    cy.log('Fill card form')
+    orderPage.typeCardName(cardName)
+    orderPage.typeCardNumber(cardNumber)
+
+    cy.log('Select expiry month/year')
+    const month = faker.number.int({ min: 1, max: 12 })
+    const year = faker.number.int({ min: 2080, max: 2099 })
+
+    orderPage.selectExpiryMonth(month)
+    orderPage.selectExpiryYear(year)
+
+    cy.log('Submit card form')
+    orderPage.submitNewCard()
+
+    cy.log('Select payment method (card)')
+    orderPage.selectFirstPaymentMethod()
+
+    cy.log('Continue to review')
+    orderPage.clickContinuePayment()
+
+    cy.log('Place order and pay')
+    orderPage.clickPlaceOrderAndPay()
+
+    cy.log('Assert order confirmation')
+    orderPage.assertOrderPlaced()
+
+
+
+
+
 
   })
 
