@@ -42,7 +42,7 @@ export class OrderPage {
   }
 
   openBasket() {
-    cy.wait(100)
+    cy.wait(1000)
     cy.log('Open shopping basket (scroll to top)')
 
     cy.get('mat-sidenav-content', { timeout: 10000 }).scrollTo('top', {
