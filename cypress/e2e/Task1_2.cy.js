@@ -2,7 +2,7 @@ import { faker } from '@faker-js/faker'
 import { RegisterPage } from '../pages/RegisterPage'
 import { LoginPage } from '../pages/LoginPage'
 
-describe('Task 1.2 - Authorization', () => {
+describe('Task1.2 - Authorization', () => {
   const registerPage = new RegisterPage()
   const loginPage = new LoginPage()
 

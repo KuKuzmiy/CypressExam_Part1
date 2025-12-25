@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker'
 import { RegisterPage } from '../pages/RegisterPage'
 
-describe('Task 1.1', () => {
+describe('Task1.1 - Registration', () => {
   const page = new RegisterPage()
 
   beforeEach(() => {

@@ -1,22 +1,25 @@
 import { faker } from '@faker-js/faker'
 import { RegisterPage } from '../pages/RegisterPage'
 
-const page = new RegisterPage()
+describe('Task1.5 - Customer Feedback form', () => {
 
-it('fills feedback comment', () => {
-  page.visitFeedback()
-  page.dismissWelcomeBanner()
-  page.acceptCookies()
+  const page = new RegisterPage()
 
-  const comment = faker.lorem.sentence(10).slice(0, 150)
+  it('Filling and submiting the form', () => {
+    page.visitFeedback()
+    page.dismissWelcomeBanner()
+    page.acceptCookies()
 
-  page.typeFeedbackComment(comment)
-  page.assertFeedbackCommentValue(comment)
+    const comment = faker.lorem.sentence(10).slice(0, 150)
 
-  page.setRating(5)
+    page.typeFeedbackComment(comment)
+    page.assertFeedbackCommentValue(comment)
 
-  page.solveCaptchaAndTypeResult()
+    page.setRating(5)
 
-  page.submitFeedback()
+    page.solveCaptchaAndTypeResult()
 
+    page.submitFeedback()
+
+  })
 })

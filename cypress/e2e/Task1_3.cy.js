@@ -2,7 +2,7 @@ import { faker } from '@faker-js/faker'
 import { RegisterPage } from '../pages/RegisterPage'
 import { OrderPage } from '../pages/OrderPage'
 
-describe('Task 1.3 - Order placement (setup only)', () => {
+describe('Task1.3 - Order placement', () => {
   const registerPage = new RegisterPage()
   const orderPage = new OrderPage()
 
@@ -10,12 +10,14 @@ describe('Task 1.3 - Order placement (setup only)', () => {
   let password
 
   before(() => {
-    cy.log('Setup: Generate random user credentials')
+    cy.log('Generate random user credentials')
+
     email = faker.internet.email()
     password = `Aa1!${faker.string.alphanumeric(8)}`
     const answer = faker.lorem.word()
 
-    cy.log('Setup: Register new user')
+    cy.log('Register new user')
+
     registerPage.visit()
     registerPage.dismissWelcomeBanner()
     registerPage.acceptCookies()
@@ -31,14 +33,14 @@ describe('Task 1.3 - Order placement (setup only)', () => {
     registerPage.submit()
     registerPage.assertSuccessToast()
 
-    cy.log('Setup: Login with newly registered user')
+    cy.log('Login with registered user')
+
     orderPage.openLoginPage()
     orderPage.login(email, password)
     orderPage.assertLoggedIn()
   })
 
   it('Order', () => {
-
     cy.log('Adding the item to the basket')
     orderPage.addAnyProductToBasket()
 
@@ -52,20 +54,22 @@ describe('Task 1.3 - Order placement (setup only)', () => {
     orderPage.clickAddNewAddress()
 
     cy.log('Generate address data')
-    const country = faker.location.country()
-    const name = faker.person.fullName()
-    const mobile = faker.string.numeric(9)
-    const zip = faker.location.zipCode('#####')
-    const address = faker.location.streetAddress()
-    const city = faker.location.city()
+    const addressData = {
+      country: faker.location.country(),
+      name: faker.person.fullName(),
+      mobile: faker.string.numeric(9),
+      zip: faker.location.zipCode('#####'),
+      address: faker.location.streetAddress(),
+      city: faker.location.city(),
+    }
 
     cy.log('Fill address form')
-    orderPage.typeCountry(country)
-    orderPage.typeName(name)
-    orderPage.typeMobileNumber(mobile)
-    orderPage.typeZipCode(zip)
-    orderPage.typeAddress(address)
-    orderPage.typeCity(city)
+    orderPage.typeCountry(addressData.country)
+    orderPage.typeName(addressData.name)
+    orderPage.typeMobileNumber(addressData.mobile)
+    orderPage.typeZipCode(addressData.zip)
+    orderPage.typeAddress(addressData.address)
+    orderPage.typeCity(addressData.city)
 
     cy.log('Submit address form')
     orderPage.submitNewAddress()
@@ -86,19 +90,20 @@ describe('Task 1.3 - Order placement (setup only)', () => {
     orderPage.clickAddNewCard()
 
     cy.log('Generate card data')
-    const cardName = faker.person.fullName()
-    const cardNumber = faker.string.numeric(16)
+    const cardData = {
+      cardName: faker.person.fullName(),
+      cardNumber: faker.string.numeric(16),
+      month: faker.number.int({ min: 1, max: 12 }),
+      year: faker.number.int({ min: 2080, max: 2099 }),
+    }
 
     cy.log('Fill card form')
-    orderPage.typeCardName(cardName)
-    orderPage.typeCardNumber(cardNumber)
+    orderPage.typeCardName(cardData.cardName)
+    orderPage.typeCardNumber(cardData.cardNumber)
 
     cy.log('Select expiry month/year')
-    const month = faker.number.int({ min: 1, max: 12 })
-    const year = faker.number.int({ min: 2080, max: 2099 })
-
-    orderPage.selectExpiryMonth(month)
-    orderPage.selectExpiryYear(year)
+    orderPage.selectExpiryMonth(cardData.month)
+    orderPage.selectExpiryYear(cardData.year)
 
     cy.log('Submit card form')
     orderPage.submitNewCard()
@@ -114,13 +119,5 @@ describe('Task 1.3 - Order placement (setup only)', () => {
 
     cy.log('Assert order confirmation')
     orderPage.assertOrderPlaced()
-
-
-
-
-
-
   })
-
-  
 })
