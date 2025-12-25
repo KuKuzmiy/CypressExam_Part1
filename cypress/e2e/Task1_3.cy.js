@@ -51,6 +51,26 @@ describe('Task 1.3 - Order placement (setup only)', () => {
     cy.log('Add new address')
     orderPage.clickAddNewAddress()
 
+    cy.log('Generate address data')
+    const country = faker.location.country()
+    const name = faker.person.fullName()
+    const mobile = faker.string.numeric(9)
+    const zip = faker.location.zipCode('#####')
+    const address = faker.location.streetAddress()
+    const city = faker.location.city()
+
+    cy.log('Fill address form')
+    orderPage.typeCountry(country)
+    orderPage.typeName(name)
+    orderPage.typeMobileNumber(mobile)
+    orderPage.typeZipCode(zip)
+    orderPage.typeAddress(address)
+    orderPage.typeCity(city)
+
+    cy.log('Submit address form')
+    orderPage.submitNewAddress()
+
+
   })
 
   

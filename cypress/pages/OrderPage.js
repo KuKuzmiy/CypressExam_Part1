@@ -79,5 +79,78 @@ openBasket() {
       .click()
   }
 
+    getInputByLabel(labelText) {
+    cy.log(`UI: Get input by label "${labelText}"`)
+
+    return cy.contains('mat-form-field', labelText, { timeout: 10000 })
+      .scrollIntoView()
+      .find('input')
+      .first()
+  }
+
+  typeCountry(country) {
+    cy.log('UI: Fill Country')
+    this.getInputByLabel('Country')
+      .should('be.enabled')
+      .clear()
+      .type(country)
+  }
+
+  typeName(name) {
+    cy.log('UI: Fill Name')
+    this.getInputByLabel('Name')
+      .should('be.enabled')
+      .clear()
+      .type(name)
+  }
+
+  typeMobileNumber(number) {
+    cy.log('UI: Fill Mobile Number')
+    this.getInputByLabel('Mobile Number')
+      .should('be.enabled')
+      .clear()
+      .type(String(number))
+  }
+
+  typeZipCode(zip) {
+    cy.log('UI: Fill ZIP Code')
+    this.getInputByLabel('ZIP Code')
+      .should('be.enabled')
+      .clear()
+      .type(String(zip))
+  }
+
+    getTextareaByLabel(labelText) {
+    cy.log(`UI: Get textarea by label "${labelText}"`)
+
+    return cy.contains('mat-form-field', labelText, { timeout: 10000 })
+      .scrollIntoView()
+      .find('textarea')
+      .first()
+  }
+
+  typeAddress(address) {
+    cy.log('UI: Fill Address')
+    this.getTextareaByLabel('Address')
+      .should('be.enabled')
+      .clear()
+      .type(address)
+  }
+
+  typeCity(city) {
+    cy.log('UI: Fill City')
+    this.getInputByLabel('City')
+      .should('be.enabled')
+      .clear()
+      .type(city)
+  }
+
+  submitNewAddress() {
+    cy.log('UI: Submit new address')
+    cy.getById('submitButton', { timeout: 10000 })
+      .should('be.visible')
+      .and('not.be.disabled')
+      .click()
+  }
 
 }
